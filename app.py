@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -35,9 +35,14 @@ def calculate_month(year: int, month: int):
             result += storage[i]
     return f"you lost {result}UAH in {months[month - 1]}-{year}"
 
-@app.route("/add/",methods=['GET'])
+
+@app.route("/add_get/", methods=['GET'])
 def search():
-    pass
+    result = 1
+    nums = request.args.getlist('num', type=int)
+    for i in nums:
+        result *= i
+    return f"sum: {sum(nums)}</br>mult: {result}"
 
 
 if __name__ == "__main__":
